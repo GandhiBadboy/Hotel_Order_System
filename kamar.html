@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pilih Kamar — Gandhi Hotel</title>
+<link rel="stylesheet" href="style.css">
+<script src="data.js"></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">✦ <span>Gandhi <span class="mark">Hotel</span></span></a>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html">Beranda</a></li>
+          <li><a href="kamar.html" class="active">Kamar</a></li>
+          <li><a href="index.html#fasilitas">Fasilitas</a></li>
+          <li><a href="index.html#kontak">Kontak</a></li>
+        </ul>
+      </nav>
+      <a href="kamar.html" class="btn-nav">Pesan Kamar</a>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow mono">Langkah 1 dari 3</span>
+      <h1>Pilih Kamar</h1>
+      <p>Empat tipe kamar dan vila, semuanya menghadap sawah berundak Gandhi Hotel.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+
+      <div class="room-grid" id="roomGrid"></div>
+      <p id="emptyState" class="room-empty-state" style="display:none;">Belum ada kamar tersedia saat ini. Silakan cek kembali nanti.</p>
+    </div>
+  </section>
+
+<script>
+  function renderRooms() {
+    const rooms = GHData.getActiveRooms();
+    const grid = document.getElementById('roomGrid');
+    const empty = document.getElementById('emptyState');
+    grid.innerHTML = '';
+
+    if (rooms.length === 0) {
+      empty.style.display = 'block';
+      return;
+    }
+    empty.style.display = 'none';
+
+    rooms.forEach(function (r) {
+      const amenities = r.fasilitas.map(function (f) { return '<span>' + f + '</span>'; }).join('');
+      const url = 'booking.html?kamar=' + encodeURIComponent(r.nama) +
+                  '&harga=' + encodeURIComponent(r.harga) +
+                  '&kapasitas=' + encodeURIComponent(r.kapasitas) +
+                  '&img=' + encodeURIComponent(r.gambar);
+
+      const card = document.createElement('div');
+      card.className = 'room-card';
+      card.innerHTML =
+        '<img class="room-img" src="' + r.gambar + '" alt="' + r.nama + '">' +
+        '<div class="room-body">' +
+          (r.tag ? '<span class="room-tag">' + r.tag + '</span>' : '') +
+          '<h3>' + r.nama + '</h3>' +
+          '<p class="room-meta">' + r.luas + ' m\u00B2 &bull; Maks. ' + r.kapasitas + ' Tamu</p>' +
+          '<div class="room-amenities">' + amenities + '</div>' +
+          '<div class="room-price-row">' +
+            '<span class="price mono">' + GHData.formatRupiah(r.harga) + '</span>' +
+            '<span class="unit">/ malam</span>' +
+          '</div>' +
+          '<a href="' + url + '" class="btn-primary btn-block">Pilih Kamar & Pesan</a>' +
+        '</div>';
+      grid.appendChild(card);
+    });
+  }
+
+  renderRooms();
+</script>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <a href="index.html" class="logo">✦ <span>Gandhi <span class="mark">Hotel</span></span></a>
+          <p style="max-width:260px;">Resor butik 11 kamar di tepi sawah berundak, Ubud, Bali.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Navigasi</h5>
+          <a href="index.html">Beranda</a>
+          <a href="kamar.html">Kamar</a>
+          <a href="index.html#fasilitas">Fasilitas</a>
+        </div>
+        <div class="footer-col">
+          <h5>Kontak</h5>
+          <p>Jl. Raya Sawah Indah No. 8, Ubud, Gianyar, Bali</p>
+          <p>+62 812-3456-7890</p>
+          <p>reservasi@gandhihotel.id</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2026 Gandhi Hotel. Seluruh hak cipta dilindungi.
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

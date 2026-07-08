@@ -1,0 +1,921 @@
+/* =============================================
+   Gandhi Hotel — Sistem Pemesanan Kamar
+   Palet: hijau hutan tropis + emas + krem pasir
+   Font: Fraunces (display), Work Sans (body),
+         IBM Plex Mono (angka, kode, harga)
+   ============================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+:root {
+  --forest: #16352A;
+  --forest-soft: #1F4636;
+  --gold: #C6A15B;
+  --gold-light: #E4C989;
+  --cream: #F6F1E7;
+  --cream-dark: #ECE2CB;
+  --ink: #201D18;
+  --muted: #746F62;
+  --white: #FFFFFF;
+  --danger: #B3452F;
+  --radius: 14px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Work Sans', sans-serif;
+  background-color: var(--cream);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  color: var(--forest);
+  line-height: 1.2;
+}
+
+a { color: inherit; }
+
+.mono {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+img { max-width: 100%; display: block; }
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* ---------- HEADER / NAV ---------- */
+
+header.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--forest);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 32px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.logo {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--white);
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo .mark {
+  color: var(--gold-light);
+}
+
+nav.main-nav ul {
+  display: flex;
+  list-style: none;
+  gap: 34px;
+}
+
+nav.main-nav a {
+  color: rgba(246,241,231,0.82);
+  text-decoration: none;
+  font-size: 14.5px;
+  transition: color 0.25s;
+}
+
+nav.main-nav a:hover,
+nav.main-nav a.active {
+  color: var(--gold-light);
+}
+
+.btn-nav {
+  background-color: var(--gold);
+  color: var(--forest) !important;
+  padding: 10px 22px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.25s, transform 0.2s;
+}
+
+.btn-nav:hover {
+  background-color: var(--gold-light);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 760px) {
+  .nav-inner { flex-wrap: wrap; gap: 14px; padding: 16px 20px; }
+  nav.main-nav ul { gap: 18px; flex-wrap: wrap; }
+}
+
+/* ---------- BUTTONS ---------- */
+
+.btn-primary {
+  display: inline-block;
+  background-color: var(--gold);
+  color: var(--forest);
+  border: none;
+  padding: 15px 32px;
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Work Sans', sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.25s, transform 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: var(--gold-light);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  display: inline-block;
+  background-color: transparent;
+  color: var(--white);
+  border: 1.5px solid rgba(255,255,255,0.5);
+  padding: 14px 30px;
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.25s;
+}
+
+.btn-outline:hover {
+  border-color: var(--white);
+  background-color: rgba(255,255,255,0.08);
+}
+
+.btn-outline-dark {
+  display: inline-block;
+  background-color: transparent;
+  color: var(--forest);
+  border: 1.5px solid var(--forest-soft);
+  padding: 13px 28px;
+  border-radius: 30px;
+  font-size: 14.5px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.btn-outline-dark:hover {
+  background-color: var(--forest);
+  color: var(--white);
+}
+
+.btn-block { width: 100%; text-align: center; }
+
+/* ---------- HERO ---------- */
+
+.hero {
+  position: relative;
+  min-height: 640px;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(180deg, rgba(22,53,42,0.55) 0%, rgba(22,53,42,0.85) 100%),
+              url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1600&q=80') center/cover no-repeat;
+  padding: 80px 0 130px 0;
+}
+
+.hero-eyebrow {
+  display: inline-block;
+  color: var(--gold-light);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12.5px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.hero h1 {
+  color: var(--white);
+  font-size: 52px;
+  max-width: 620px;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  color: rgba(246,241,231,0.85);
+  max-width: 480px;
+  font-size: 16px;
+  margin-bottom: 32px;
+}
+
+.hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+.hero-stars {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 38px;
+  color: rgba(246,241,231,0.75);
+  font-size: 13.5px;
+}
+
+.hero-stars .stars { color: var(--gold-light); letter-spacing: 2px; }
+
+@media (max-width: 700px) {
+  .hero { min-height: 560px; padding: 60px 0 150px 0; }
+  .hero h1 { font-size: 36px; }
+}
+
+/* ---------- RESERVATION CARD (elemen signature) ----------
+   Kartu bergaya "tiket/kunci kamar" dengan sisi sobekan
+   berlubang, dipakai di beranda (widget cari), halaman
+   pesan (ringkasan kamar) dan konfirmasi (tiket reservasi) */
+
+.reservation-card {
+  position: relative;
+  background-color: var(--white);
+  border: 1.5px solid var(--cream-dark);
+  border-radius: var(--radius);
+  box-shadow: 0 24px 48px rgba(22,53,42,0.18);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  overflow: visible;
+}
+
+.reservation-card .rc-main {
+  padding: 26px 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 22px;
+  align-items: end;
+}
+
+.reservation-card .rc-field label {
+  display: block;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.reservation-card .rc-field input,
+.reservation-card .rc-field select {
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid var(--cream-dark);
+  background: transparent;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 15px;
+  color: var(--ink);
+  padding: 6px 2px;
+  outline: none;
+  transition: border-color 0.25s;
+}
+
+.reservation-card .rc-field input:focus,
+.reservation-card .rc-field select:focus {
+  border-color: var(--gold);
+}
+
+.reservation-card .rc-stub {
+  background-color: var(--forest);
+  color: var(--white);
+  width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.reservation-card .rc-stub::before {
+  content: '';
+  position: absolute;
+  left: -11px;
+  top: -11px;
+  width: 22px;
+  height: 22px;
+  background-color: var(--cream);
+  border-radius: 50%;
+}
+
+.reservation-card .rc-stub::after {
+  content: '';
+  position: absolute;
+  left: -11px;
+  bottom: -11px;
+  width: 22px;
+  height: 22px;
+  background-color: var(--cream);
+  border-radius: 50%;
+}
+
+.reservation-card .rc-divider {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  border-left: 2px dashed var(--cream-dark);
+}
+
+.reservation-card .rc-stub button {
+  width: 100%;
+}
+
+@media (max-width: 760px) {
+  .reservation-card { grid-template-columns: 1fr; }
+  .reservation-card .rc-stub {
+    width: auto;
+    border-radius: 0 0 var(--radius) var(--radius);
+  }
+  .reservation-card .rc-stub::before,
+  .reservation-card .rc-stub::after {
+    top: -11px; bottom: auto;
+  }
+  .reservation-card .rc-stub::before { left: 20%; }
+  .reservation-card .rc-stub::after { left: 80%; }
+  .reservation-card .rc-divider { display: none; }
+}
+
+.search-widget-wrap {
+  max-width: 980px;
+  margin: -90px auto 0 auto;
+  padding: 0 32px;
+  position: relative;
+  z-index: 5;
+}
+
+/* ---------- SECTIONS ---------- */
+
+.section {
+  padding: 110px 0 70px 0;
+}
+
+.section-tight { padding: 60px 0; }
+
+.section-head {
+  text-align: center;
+  max-width: 560px;
+  margin: 0 auto 50px auto;
+}
+
+.eyebrow {
+  display: block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+.section-head h2 { font-size: 32px; margin-bottom: 12px; }
+.section-head p { color: var(--muted); font-size: 15px; }
+
+/* ---------- ROOM CARDS ---------- */
+
+.room-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 28px;
+}
+
+.room-card {
+  background-color: var(--white);
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--cream-dark);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.room-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 38px rgba(22,53,42,0.14);
+}
+
+.room-card .room-img {
+  height: 210px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.room-card .room-body { padding: 22px 24px 26px 24px; }
+
+.room-card .room-tag {
+  display: inline-block;
+  background-color: var(--cream-dark);
+  color: var(--forest-soft);
+  font-size: 11.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+
+.room-card h3 { font-size: 19px; margin-bottom: 6px; }
+
+.room-card .room-meta {
+  color: var(--muted);
+  font-size: 13.5px;
+  margin-bottom: 14px;
+}
+
+.room-amenities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.room-amenities span {
+  font-size: 12px;
+  color: var(--forest-soft);
+  background-color: var(--cream);
+  border: 1px solid var(--cream-dark);
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.room-price-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.room-price-row .price {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--forest);
+}
+
+.room-price-row .unit {
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+/* ---------- FASILITAS ---------- */
+
+.facility-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+}
+
+.facility-item {
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.facility-item .ic {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background-color: var(--cream-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin: 0 auto 16px auto;
+}
+
+.facility-item h4 { font-size: 16px; margin-bottom: 8px; }
+.facility-item p { color: var(--muted); font-size: 13.5px; }
+
+/* ---------- TESTIMONI ---------- */
+
+.testimonial {
+  background-color: var(--forest);
+  border-radius: var(--radius);
+  padding: 60px;
+  text-align: center;
+  color: var(--white);
+}
+
+.testimonial blockquote {
+  font-family: 'Fraunces', serif;
+  font-size: 24px;
+  font-weight: 500;
+  max-width: 700px;
+  margin: 0 auto 20px auto;
+  line-height: 1.5;
+}
+
+.testimonial cite {
+  font-style: normal;
+  color: var(--gold-light);
+  font-size: 13.5px;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 700px) {
+  .testimonial { padding: 40px 24px; }
+  .testimonial blockquote { font-size: 19px; }
+}
+
+/* ---------- FOOTER ---------- */
+
+footer.site-footer {
+  background-color: var(--forest);
+  color: rgba(246,241,231,0.7);
+  padding: 50px 0 26px 0;
+  margin-top: 40px;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.footer-inner .logo { margin-bottom: 12px; }
+
+.footer-col h5 {
+  color: var(--gold-light);
+  font-size: 12.5px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin-bottom: 14px;
+}
+
+.footer-col p, .footer-col a {
+  display: block;
+  font-size: 13.5px;
+  text-decoration: none;
+  color: rgba(246,241,231,0.7);
+  margin-bottom: 8px;
+}
+
+.footer-col a:hover { color: var(--gold-light); }
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 22px;
+  font-size: 12.5px;
+  text-align: center;
+  color: rgba(246,241,231,0.5);
+}
+
+/* ---------- PAGE HEADER (kamar.html, booking.html, konfirmasi.html) ---------- */
+
+.page-hero {
+  background: linear-gradient(rgba(22,53,42,0.82), rgba(22,53,42,0.9)),
+              url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1600&q=80') center/cover no-repeat;
+  padding: 70px 0 60px 0;
+  color: var(--white);
+}
+
+.page-hero .eyebrow { color: var(--gold-light); }
+.page-hero h1 { color: var(--white); font-size: 36px; margin-bottom: 10px; }
+.page-hero p { color: rgba(246,241,231,0.8); max-width: 500px; }
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(246,241,231,0.85);
+  text-decoration: none;
+  font-size: 13.5px;
+  margin-bottom: 24px;
+  transition: color 0.25s;
+}
+
+.back-link:hover { color: var(--gold-light); }
+
+/* ---------- BOOKING FORM (booking.html) ---------- */
+
+.booking-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 30px;
+  align-items: start;
+}
+
+.form-card {
+  background-color: var(--white);
+  border: 1px solid var(--cream-dark);
+  border-radius: var(--radius);
+  padding: 34px;
+}
+
+.form-card h3 {
+  font-size: 18px;
+  margin-bottom: 22px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--cream-dark);
+}
+
+.form-row {
+  display: flex;
+  gap: 18px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.field { flex: 1; min-width: 180px; }
+
+.field label {
+  display: block;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 13px 15px;
+  background-color: var(--cream);
+  border: 1px solid var(--cream-dark);
+  border-radius: 8px;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 14.5px;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.25s;
+}
+
+.field textarea { resize: vertical; min-height: 90px; }
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--gold);
+}
+
+.selected-room-card {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  background-color: var(--cream);
+  border: 1px solid var(--cream-dark);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 28px;
+}
+
+.selected-room-card img {
+  width: 84px;
+  height: 84px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.selected-room-card h4 { font-size: 16px; margin-bottom: 4px; }
+.selected-room-card span { font-size: 13px; color: var(--muted); }
+
+/* Ringkasan biaya (booking.html & konfirmasi.html) */
+
+.summary-card {
+  background-color: var(--forest);
+  color: var(--white);
+  border-radius: var(--radius);
+  padding: 30px;
+  position: sticky;
+  top: 100px;
+}
+
+.summary-card h3 {
+  color: var(--white);
+  font-size: 17px;
+  margin-bottom: 20px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13.5px;
+  color: rgba(246,241,231,0.75);
+  margin-bottom: 14px;
+}
+
+.summary-row span:last-child {
+  color: var(--white);
+  font-weight: 500;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.summary-divider {
+  height: 1px;
+  background-color: rgba(255,255,255,0.14);
+  margin: 18px 0;
+}
+
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 22px;
+}
+
+.summary-total span:first-child { font-size: 14px; color: rgba(246,241,231,0.85); }
+
+.summary-total span:last-child {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--gold-light);
+}
+
+.summary-note {
+  font-size: 12px;
+  color: rgba(246,241,231,0.55);
+  text-align: center;
+  margin-top: 14px;
+}
+
+@media (max-width: 900px) {
+  .booking-grid { grid-template-columns: 1fr; }
+  .summary-card { position: static; }
+}
+
+/* ---------- KONFIRMASI (konfirmasi.html) ---------- */
+
+.confirm-wrap {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.confirm-icon {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background-color: var(--cream-dark);
+  color: var(--forest);
+  font-size: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: -108px auto 26px auto;
+  border: 6px solid var(--cream);
+  position: relative;
+  z-index: 2;
+}
+
+.confirm-wrap h1 { font-size: 30px; margin-bottom: 10px; }
+.confirm-wrap > p { color: var(--muted); margin-bottom: 40px; }
+
+.ticket {
+  background-color: var(--white);
+  border: 1.5px solid var(--cream-dark);
+  border-radius: var(--radius);
+  box-shadow: 0 24px 48px rgba(22,53,42,0.14);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr;
+  text-align: left;
+}
+
+.ticket-top {
+  padding: 30px 34px 24px 34px;
+}
+
+.ticket-top .t-eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11.5px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.ticket-top h3 { font-size: 20px; margin-bottom: 20px; }
+
+.ticket-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px 24px;
+}
+
+.ticket-grid .t-item label {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--muted);
+  margin-bottom: 5px;
+}
+
+.ticket-grid .t-item div {
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.ticket-perforation {
+  position: relative;
+  border-top: 2px dashed var(--cream-dark);
+  margin: 0 0;
+}
+
+.ticket-perforation::before,
+.ticket-perforation::after {
+  content: '';
+  position: absolute;
+  top: -12px;
+  width: 24px;
+  height: 24px;
+  background-color: var(--cream);
+  border-radius: 50%;
+}
+
+.ticket-perforation::before { left: -12px; }
+.ticket-perforation::after { right: -12px; }
+
+.ticket-bottom {
+  background-color: var(--forest);
+  color: var(--white);
+  padding: 24px 34px 28px 34px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.ticket-bottom .code-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(246,241,231,0.6);
+  margin-bottom: 6px;
+}
+
+.ticket-bottom .code {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--gold-light);
+  letter-spacing: 1px;
+}
+
+.barcode {
+  display: flex;
+  gap: 2px;
+  height: 34px;
+  align-items: stretch;
+}
+
+.barcode span {
+  display: block;
+  background-color: rgba(228,201,137,0.85);
+  width: 3px;
+}
+.barcode span:nth-child(3n) { width: 5px; }
+.barcode span:nth-child(5n) { background-color: rgba(228,201,137,0.4); }
+
+.confirm-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+  .ticket-grid { grid-template-columns: 1fr 1fr; }
+  .ticket-top, .ticket-bottom { padding-left: 22px; padding-right: 22px; }
+}
+
+@media print {
+  header.site-header, footer.site-footer, .confirm-actions, .back-link { display: none; }
+  body { background-color: var(--white); }
+}

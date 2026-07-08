@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pemesanan Dikonfirmasi — Gandhi Hotel</title>
+<link rel="stylesheet" href="style.css">
+<script src="data.js"></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">✦ <span>Gandhi <span class="mark">Hotel</span></span></a>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html">Beranda</a></li>
+          <li><a href="kamar.html">Kamar</a></li>
+          <li><a href="index.html#fasilitas">Fasilitas</a></li>
+          <li><a href="index.html#kontak">Kontak</a></li>
+        </ul>
+      </nav>
+      <a href="kamar.html" class="btn-nav">Pesan Kamar</a>
+    </div>
+  </header>
+
+  <section class="page-hero" style="padding-bottom: 108px;">
+    <div class="container">
+      <span class="eyebrow mono">Langkah 3 dari 3</span>
+      <h1>Terima kasih, pemesanan diterima!</h1>
+      <p>Detail reservasi juga telah kami kirim ke email yang kamu daftarkan.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <div class="confirm-wrap">
+        <div class="confirm-icon">✓</div>
+
+        <div class="ticket">
+          <div class="ticket-top">
+            <span class="t-eyebrow">Gandhi Hotel &bull; Tiket Reservasi</span>
+            <h3 id="ticketRoom">Deluxe Sawah View</h3>
+
+            <div class="ticket-grid">
+              <div class="t-item">
+                <label>Nama Tamu</label>
+                <div id="ticketNama">-</div>
+              </div>
+              <div class="t-item">
+                <label>Jumlah Tamu</label>
+                <div id="ticketTamu">-</div>
+              </div>
+              <div class="t-item">
+                <label>Check-in</label>
+                <div id="ticketCheckin">-</div>
+              </div>
+              <div class="t-item">
+                <label>Check-out</label>
+                <div id="ticketCheckout">-</div>
+              </div>
+              <div class="t-item">
+                <label>Jumlah Malam</label>
+                <div id="ticketMalam">-</div>
+              </div>
+              <div class="t-item">
+                <label>Jumlah Kamar</label>
+                <div id="ticketKamar">-</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ticket-perforation"></div>
+
+          <div class="ticket-bottom">
+            <div>
+              <span class="code-label">Kode Reservasi</span>
+              <span class="code mono" id="ticketKode">KRN-000000</span>
+            </div>
+            <div style="text-align:right;">
+              <span class="code-label">Total Bayar</span>
+              <div class="code mono" id="ticketTotal" style="font-size:20px;">Rp 0</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="confirm-actions">
+          <button onclick="window.print()" class="btn-outline-dark">🖨 Cetak Tiket</button>
+          <a href="index.html" class="btn-primary">Kembali ke Beranda</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        &copy; 2026 Gandhi Hotel. Seluruh hak cipta dilindungi.
+      </div>
+    </div>
+  </footer>
+
+<script>
+  const query = new URLSearchParams(window.location.search);
+  const kode = query.get('kode');
+  const booking = kode ? GHData.getBookingByKode(kode) : null;
+
+  if (booking) {
+    document.getElementById('ticketRoom').textContent = booking.kamar;
+    document.getElementById('ticketNama').textContent = booking.nama || '-';
+    document.getElementById('ticketTamu').textContent = booking.jumlahTamu + ' Tamu';
+    document.getElementById('ticketCheckin').textContent = booking.checkin || '-';
+    document.getElementById('ticketCheckout').textContent = booking.checkout || '-';
+    document.getElementById('ticketMalam').textContent = booking.malam + ' Malam';
+    document.getElementById('ticketKamar').textContent = booking.jumlahKamar + ' Kamar';
+    document.getElementById('ticketTotal').textContent = GHData.formatRupiah(booking.total);
+    document.getElementById('ticketKode').textContent = booking.kode;
+  } else {
+    document.querySelector('.confirm-wrap > p').textContent =
+      'Data pemesanan tidak ditemukan. Silakan lakukan pemesanan ulang dari halaman Kamar.';
+    document.getElementById('ticketRoom').textContent = '-';
+  }
+</script>
+
+</body>
+</html>

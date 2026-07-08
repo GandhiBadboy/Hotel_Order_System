@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detail Pemesanan — Gandhi Hotel</title>
+<link rel="stylesheet" href="style.css">
+<script src="data.js"></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">✦ <span>Gandhi <span class="mark">Hotel</span></span></a>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html">Beranda</a></li>
+          <li><a href="kamar.html" class="active">Kamar</a></li>
+          <li><a href="index.html#fasilitas">Fasilitas</a></li>
+          <li><a href="index.html#kontak">Kontak</a></li>
+        </ul>
+      </nav>
+      <a href="kamar.html" class="btn-nav">Pesan Kamar</a>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <a href="kamar.html" class="back-link">&larr; Kembali Pilih Kamar</a>
+      <span class="eyebrow mono">Langkah 2 dari 3</span>
+      <h1>Detail Pemesanan</h1>
+      <p>Lengkapi data tamu dan tanggal menginap untuk melanjutkan.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+
+      <form id="bookingForm" class="booking-grid">
+
+        <div class="form-card">
+          <h3>Data Tamu</h3>
+          <div class="selected-room-card">
+            <img id="roomImg" src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=200&q=80" alt="Kamar dipilih">
+            <div>
+              <h4 id="roomName">Deluxe Sawah View</h4>
+              <span id="roomMeta">Maks. 2 tamu &bull; Rp 850.000 / malam</span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="field">
+              <label for="nama">Nama Lengkap</label>
+              <input type="text" id="nama" name="nama" placeholder="Nama sesuai KTP/Paspor" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="nama@email.com" required>
+            </div>
+            <div class="field">
+              <label for="telepon">No. Telepon</label>
+              <input type="tel" id="telepon" name="telepon" placeholder="08xx-xxxx-xxxx" required>
+            </div>
+          </div>
+
+          <h3>Detail Menginap</h3>
+
+          <div class="form-row">
+            <div class="field">
+              <label for="checkin">Tanggal Check-in</label>
+              <input type="date" id="checkin" name="checkin" required>
+            </div>
+            <div class="field">
+              <label for="checkout">Tanggal Check-out</label>
+              <input type="date" id="checkout" name="checkout" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="field">
+              <label for="jumlahTamu">Jumlah Tamu</label>
+              <select id="jumlahTamu" name="jumlahTamu">
+                <option value="1">1 Tamu</option>
+                <option value="2" selected>2 Tamu</option>
+                <option value="3">3 Tamu</option>
+                <option value="4">4 Tamu</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="jumlahKamar">Jumlah Kamar</label>
+              <select id="jumlahKamar" name="jumlahKamar">
+                <option value="1" selected>1 Kamar</option>
+                <option value="2">2 Kamar</option>
+                <option value="3">3 Kamar</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="field">
+              <label for="catatan">Permintaan Khusus (opsional)</label>
+              <textarea id="catatan" name="catatan" placeholder="Contoh: kamar di lantai atas, tempat tidur tambahan, dsb."></textarea>
+            </div>
+          </div>
+
+          <!-- Data kamar dibawa ke halaman konfirmasi -->
+          <input type="hidden" id="kamarField" name="kamar">
+          <input type="hidden" id="hargaField" name="harga">
+          <input type="hidden" id="imgField" name="img">
+          <input type="hidden" id="malamField" name="malam">
+          <input type="hidden" id="totalField" name="total">
+        </div>
+
+        <div class="summary-card">
+          <h3>Ringkasan Biaya</h3>
+          <div class="summary-row">
+            <span>Harga / malam</span>
+            <span id="sumHarga">Rp 0</span>
+          </div>
+          <div class="summary-row">
+            <span>Jumlah malam</span>
+            <span id="sumMalam">0 malam</span>
+          </div>
+          <div class="summary-row">
+            <span>Jumlah kamar</span>
+            <span id="sumKamar">1</span>
+          </div>
+          <div class="summary-divider"></div>
+          <div class="summary-total">
+            <span>Total Estimasi</span>
+            <span id="sumTotal">Rp 0</span>
+          </div>
+          <button type="submit" class="btn-primary btn-block">Konfirmasi Pemesanan</button>
+          <p class="summary-note">Belum ada pembayaran yang dipotong pada tahap ini.</p>
+        </div>
+
+      </form>
+
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        &copy; 2026 Gandhi Hotel. Seluruh hak cipta dilindungi.
+      </div>
+    </div>
+  </footer>
+
+<script>
+  // Ambil data kamar yang dipilih dari parameter URL (dikirim dari kamar.html)
+  const query = new URLSearchParams(window.location.search);
+  const namaKamar = query.get('kamar') || 'Deluxe Sawah View';
+  const harga = parseInt(query.get('harga') || '850000', 10);
+  const kapasitas = query.get('kapasitas') || '2';
+  const gambar = query.get('img') || 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=200&q=80';
+
+  document.getElementById('roomName').textContent = namaKamar;
+  document.getElementById('roomMeta').textContent = 'Maks. ' + kapasitas + ' tamu \u2022 Rp ' + harga.toLocaleString('id-ID') + ' / malam';
+  document.getElementById('roomImg').src = gambar;
+  document.getElementById('kamarField').value = namaKamar;
+  document.getElementById('hargaField').value = harga;
+  document.getElementById('imgField').value = gambar;
+  document.getElementById('sumHarga').textContent = 'Rp ' + harga.toLocaleString('id-ID');
+
+  // Tanggal minimal: check-in hari ini, check-out minimal H+1
+  const today = new Date().toISOString().split('T')[0];
+  const checkinInput = document.getElementById('checkin');
+  const checkoutInput = document.getElementById('checkout');
+  checkinInput.min = today;
+  checkoutInput.min = today;
+
+  function hitungRingkasan() {
+    const jumlahKamar = parseInt(document.getElementById('jumlahKamar').value, 10);
+    let malam = 0;
+
+    if (checkinInput.value && checkoutInput.value) {
+      const inDate = new Date(checkinInput.value);
+      const outDate = new Date(checkoutInput.value);
+      const diffMs = outDate - inDate;
+      malam = Math.round(diffMs / (1000 * 60 * 60 * 24));
+      if (malam < 0) malam = 0;
+    }
+
+    const total = malam * harga * jumlahKamar;
+
+    document.getElementById('sumMalam').textContent = malam + ' malam';
+    document.getElementById('sumKamar').textContent = jumlahKamar + ' kamar';
+    document.getElementById('sumTotal').textContent = 'Rp ' + total.toLocaleString('id-ID');
+
+    document.getElementById('malamField').value = malam;
+    document.getElementById('totalField').value = total;
+
+    return malam;
+  }
+
+  checkinInput.addEventListener('change', function() {
+    checkoutInput.min = checkinInput.value;
+    hitungRingkasan();
+  });
+  checkoutInput.addEventListener('change', hitungRingkasan);
+  document.getElementById('jumlahKamar').addEventListener('change', hitungRingkasan);
+
+  document.getElementById('bookingForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const malam = hitungRingkasan();
+    if (malam <= 0) {
+      alert('Tanggal check-out harus setelah tanggal check-in.');
+      return;
+    }
+
+    const jumlahKamar = parseInt(document.getElementById('jumlahKamar').value, 10);
+    const total = malam * harga * jumlahKamar;
+
+    const booking = {
+      kamar: namaKamar,
+      harga: harga,
+      gambar: gambar,
+      nama: document.getElementById('nama').value,
+      email: document.getElementById('email').value,
+      telepon: document.getElementById('telepon').value,
+      checkin: checkinInput.value,
+      checkout: checkoutInput.value,
+      jumlahTamu: document.getElementById('jumlahTamu').value,
+      jumlahKamar: jumlahKamar,
+      malam: malam,
+      total: total,
+      catatan: document.getElementById('catatan').value
+    };
+
+    const saved = GHData.addBooking(booking);
+    window.location.href = 'konfirmasi.html?kode=' + encodeURIComponent(saved.kode);
+  });
+
+  hitungRingkasan();
+</script>
+
+</body>
+</html>

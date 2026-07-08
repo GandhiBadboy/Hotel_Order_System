@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gandhi Hotel — Pemesanan Kamar</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">✦ <span>Gandhi <span class="mark">Hotel</span></span></a>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html" class="active">Beranda</a></li>
+          <li><a href="kamar.html">Kamar</a></li>
+          <li><a href="index.html#fasilitas">Fasilitas</a></li>
+          <li><a href="index.html#kontak">Kontak</a></li>
+        </ul>
+      </nav>
+      <a href="kamar.html" class="btn-nav">Pesan Kamar</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <span class="hero-eyebrow">Resor Butik · Tepi Sawah, Ubud</span>
+      <h1>Menginap dalam keheningan hijau Ubud.</h1>
+      <p>Sebelas kamar dan vila pribadi menghadap sawah berundak, kolam renang tepi tebing, dan sarapan yang disiapkan sesuai jam bangun tamu &mdash; bukan jadwal dapur.</p>
+      <div class="hero-actions">
+        <a href="kamar.html" class="btn-primary">Lihat Kamar</a>
+        <a href="index.html#fasilitas" class="btn-outline">Fasilitas Resor</a>
+      </div>
+      <div class="hero-stars">
+        <span class="stars">★★★★★</span>
+        <span>4.9 dari 312 tamu · Peringkat #2 resor butik di Ubud</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="search-widget-wrap">
+    <form class="reservation-card" action="kamar.html" method="GET">
+      <div class="rc-main">
+        <div class="rc-field">
+          <label for="checkin">Check-in</label>
+          <input type="date" id="checkin" name="checkin" required>
+        </div>
+        <div class="rc-field">
+          <label for="checkout">Check-out</label>
+          <input type="date" id="checkout" name="checkout" required>
+        </div>
+        <div class="rc-field">
+          <label for="tamu">Jumlah Tamu</label>
+          <select id="tamu" name="tamu">
+            <option value="1">1 Tamu</option>
+            <option value="2" selected>2 Tamu</option>
+            <option value="3">3 Tamu</option>
+            <option value="4">4 Tamu</option>
+          </select>
+        </div>
+      </div>
+      <div class="rc-divider"></div>
+      <div class="rc-stub">
+        <button type="submit" class="btn-primary btn-block">Cari Kamar</button>
+      </div>
+    </form>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Kamar Pilihan</span>
+        <h2>Empat tipe menginap, satu pemandangan sawah</h2>
+        <p>Setiap kamar menghadap teras sawah yang sama, bedanya hanya seberapa dekat kamu ingin berada dengan kolam renang.</p>
+      </div>
+
+      <div class="room-grid">
+
+        <div class="room-card">
+          <img class="room-img" src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=500&q=80" alt="Deluxe Sawah View">
+          <div class="room-body">
+            <span class="room-tag">Terlaris</span>
+            <h3>Deluxe Sawah View</h3>
+            <p class="room-meta">28 m² &bull; 2 Tamu &bull; Balkon Pribadi</p>
+            <div class="room-price-row">
+              <span class="price mono">Rp 850.000</span>
+              <span class="unit">/ malam</span>
+            </div>
+            <a href="kamar.html" class="btn-outline-dark btn-block">Lihat Detail</a>
+          </div>
+        </div>
+
+        <div class="room-card">
+          <img class="room-img" src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=500&q=80" alt="Suite Kolam Pribadi">
+          <div class="room-body">
+            <span class="room-tag">Favorit Pasangan</span>
+            <h3>Suite Kolam Pribadi</h3>
+            <p class="room-meta">42 m² &bull; 2 Tamu &bull; Kolam Renang Sendiri</p>
+            <div class="room-price-row">
+              <span class="price mono">Rp 1.450.000</span>
+              <span class="unit">/ malam</span>
+            </div>
+            <a href="kamar.html" class="btn-outline-dark btn-block">Lihat Detail</a>
+          </div>
+        </div>
+
+        <div class="room-card">
+          <img class="room-img" src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=500&q=80" alt="Villa Keluarga">
+          <div class="room-body">
+            <span class="room-tag">Untuk Keluarga</span>
+            <h3>Villa Keluarga</h3>
+            <p class="room-meta">65 m² &bull; 4 Tamu &bull; 2 Kamar Tidur</p>
+            <div class="room-price-row">
+              <span class="price mono">Rp 2.100.000</span>
+              <span class="unit">/ malam</span>
+            </div>
+            <a href="kamar.html" class="btn-outline-dark btn-block">Lihat Detail</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-tight" id="fasilitas">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Fasilitas Resor</span>
+        <h2>Semua yang perlu, tak satu pun berlebihan</h2>
+      </div>
+
+      <div class="facility-grid">
+        <div class="facility-item">
+          <div class="ic">🏊</div>
+          <h4>Kolam Tepi Tebing</h4>
+          <p>Buka 06.00–20.00, menghadap langsung lembah sawah.</p>
+        </div>
+        <div class="facility-item">
+          <div class="ic">🍽️</div>
+          <h4>Sarapan Kapan Saja</h4>
+          <p>Menu lokal & barat, disajikan sampai jam 12 siang.</p>
+        </div>
+        <div class="facility-item">
+          <div class="ic">🧖</div>
+          <h4>Spa Tradisional</h4>
+          <p>Pijat Bali dan lulur oleh terapis desa setempat.</p>
+        </div>
+        <div class="facility-item">
+          <div class="ic">🚲</div>
+          <h4>Sepeda Gratis</h4>
+          <p>Jelajah sawah dan desa sekitar tanpa biaya tambahan.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-tight">
+    <div class="container">
+      <div class="testimonial">
+        <blockquote>&ldquo;Bangun pagi dengan suara air mengalir dan kabut di atas sawah &mdash; lalu sarapan tanpa perlu buru-buru. Gandhi Hotel mengerti apa artinya benar-benar beristirahat.&rdquo;</blockquote>
+        <cite>— Amelia R., tamu berulang sejak 2023</cite>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer" id="kontak">
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <a href="index.html" class="logo">✦ <span>Gandhi <span class="mark">Hotel</span></span></a>
+          <p style="max-width:260px;">Resor butik 11 kamar di tepi sawah berundak, Ubud, Bali.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Navigasi</h5>
+          <a href="index.html">Beranda</a>
+          <a href="kamar.html">Kamar</a>
+          <a href="index.html#fasilitas">Fasilitas</a>
+        </div>
+        <div class="footer-col">
+          <h5>Kontak</h5>
+          <p>Jl. Letda Reta Gang. 8, Denpasar Timur, Denpasar, Bali</p>
+          <p>+62 812-3456-7890</p>
+          <p>reservasi@gandhihotel.id</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2026 Gandhi Hotel. Seluruh hak cipta dilindungi.
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
